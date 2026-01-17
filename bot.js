@@ -38,6 +38,28 @@ bot.on("message", async (ctx) => {
         writeLog(
           `LINK_DELETED | user=${from.first_name} (${from.id}) | chat=${chat.title}`
         );
+        return; // Stop processing
+      }
+    }
+
+    // Explicit Word Check
+    const bannedWords = ["cp", "bio", "check"];
+    const hasBannedWord = bannedWords.some((word) =>
+      text.toLowerCase().includes(word.toLowerCase())
+    );
+
+    if (text && hasBannedWord) {
+      const member = await ctx.telegram.getChatMember(chat.id, from.id);
+      const isAdmin =
+        member.status === "administrator" || member.status === "creator";
+
+      if (!isAdmin) {
+        await ctx.telegram.deleteMessage(chat.id, message_id);
+
+        writeLog(
+          `EXPLICIT_DELETED | user=${from.first_name} (${from.id}) | chat=${chat.title}`
+        );
+        return;
       }
     }
   } catch (error) {
