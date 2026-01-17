@@ -43,7 +43,7 @@ bot.on("message", async (ctx) => {
     }
 
     // Explicit Word Check
-    const bannedWords = ["cp", "bio", "check"];
+    const bannedWords = ["cp", "bio", "check", "bio check", "cp bio", "rape", "child"];
     const hasBannedWord = bannedWords.some((word) =>
       text.toLowerCase().includes(word.toLowerCase())
     );
