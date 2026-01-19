@@ -5,7 +5,7 @@ config();
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-const linkRegex = /(https?:\/\/|t\.me\/|www\.)/i;
+const linkRegex = /@\w+|((https?:\/\/|t\.me\/|www\.)[^\s]+)/gi;
 
 function writeLog(message) {
   const time = new Date().toISOString();
